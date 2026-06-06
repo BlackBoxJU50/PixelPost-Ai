@@ -1,0 +1,19 @@
+.page { min-height: 100vh; display: flex; align-items: center; justify-content: center; padding: 24px; background: radial-gradient(ellipse at 50% 0%,rgba(46,134,193,0.08) 0%,transparent 70%), var(--bg); }
+.card { background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius-xl); padding: 40px; width: 100%; max-width: 440px; animation: fadeIn 0.4s ease; }
+.logo { display: flex; align-items: center; gap: 8px; font-size: 18px; font-weight: 700; color: var(--text); text-decoration: none; margin-bottom: 24px; }
+.title { font-size: 24px; font-weight: 800; margin-bottom: 6px; }
+.subtitle { color: var(--text-muted); font-size: 14px; margin-bottom: 24px; }
+.googleBtn { margin-bottom: 20px; font-weight: 600; }
+.form { display: flex; flex-direction: column; gap: 16px; margin-top: 20px; }
+.inputWrapper { position: relative; }
+.inputIcon { position: absolute; left: 12px; top: 50%; transform: translateY(-50%); color: var(--text-dim); pointer-events: none; }
+.inputWithIcon { padding-left: 36px !important; }
+.inputWithIconRight { padding-right: 36px !important; }
+.eyeBtn { position: absolute; right: 12px; top: 50%; transform: translateY(-50%); background: none; border: none; color: var(--text-dim); cursor: pointer; display: flex; padding: 2px; transition: var(--transition); }
+.eyeBtn:hover { color: var(--text); }
+.error { color: var(--error); font-size: 12px; margin-top: 2px; }
+.forgotLink { font-size: 13px; color: var(--accent); text-align: right; margin-top: -8px; }
+.switchText { text-align: center; font-size: 14px; color: var(--text-muted); margin-top: 20px; }
+.switchText a { color: var(--accent); font-weight: 600; }
+.terms { text-align: center; font-size: 12px; color: var(--text-dim); margin-top: 12px; line-height: 1.5; }
+.terms a { color: var(--text-muted); }
