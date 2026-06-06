@@ -2,6 +2,7 @@ services:
   # ─── Backend API ─────────────────────────────────────────────────────────────
   - type: web
     name: pixelpost-ai-backend
+    plan: free
     runtime: node
     rootDir: backend
     buildCommand: npm install
