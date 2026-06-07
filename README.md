@@ -38,13 +38,17 @@ cd PixelPost-Ai
 ```
 
 ### 2. AI Optimization Service (Python)
-This microservice calculates virality scores for the generated captions.
+This AI/NLP microservice uses the `TextBlob` library to analyze generated captions. It calculates:
+* **Sentiment Polarity:** How positive or negative the caption is.
+* **Subjectivity:** Whether the text is fact-based or opinion-based.
+* **Virality Score:** A custom algorithmic score (0-100) predicting post engagement based on length, sentiment strength, subjectivity, and hashtag density.
+
 ```bash
 cd python-service
 python3 -m venv venv
 source venv/bin/activate  # On Windows use `venv\Scripts\activate`
 pip install -r requirements.txt
-uvicorn main:app --reload --port 8000
+python -m uvicorn main:app --reload --port 8000
 ```
 
 ### 3. Backend Setup
