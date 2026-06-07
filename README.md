@@ -22,6 +22,7 @@ PixelPost AI is a modern SaaS platform that instantly generates platform-optimiz
 * **Backend:** Node.js, Express, Firebase Admin SDK
 * **Database:** Supabase (PostgreSQL)
 * **AI Provider:** Groq SDK (Llama 4 Vision) & OpenAI (GPT-4o)
+* **AI Optimization Microservice:** Python, FastAPI, TextBlob (Sentiment & Virality Scoring)
 * **Deployment:** Render (Built-in `render.yaml` Blueprint)
 
 ---
@@ -36,7 +37,18 @@ git clone https://github.com/BlackBoxJU50/PixelPost-Ai.git
 cd PixelPost-Ai
 ```
 
-### 2. Backend Setup
+### 2. AI Optimization Service (Python)
+This microservice calculates virality scores for the generated captions.
+```bash
+cd python-service
+python3 -m venv venv
+source venv/bin/activate  # On Windows use `venv\Scripts\activate`
+pip install -r requirements.txt
+uvicorn main:app --reload --port 8000
+```
+
+### 3. Backend Setup
+Open a new terminal tab:
 ```bash
 cd backend
 npm install
@@ -46,6 +58,7 @@ Create a `.env` file in the `backend` directory with the following variables:
 PORT=5003
 NODE_ENV=development
 FRONTEND_URL=http://localhost:5173
+PYTHON_SERVICE_URL=http://localhost:8000
 
 # Firebase Admin (Get from Firebase Service Accounts)
 FIREBASE_PROJECT_ID=...
@@ -64,7 +77,7 @@ Start the backend development server:
 npm run dev
 ```
 
-### 3. Frontend Setup
+### 4. Frontend Setup
 Open a new terminal tab:
 ```bash
 cd frontend

@@ -169,12 +169,33 @@ export async function generatePosts(imageBase64, platforms, options = {}) {
     usedModel = model === 'ultra' ? 'gpt-4o' : 'gpt-4o-mini';
   }
 
-  // Validate & enrich character counts
+  // Validate & enrich character counts and AI Optimization scores
   if (result?.posts) {
-    result.posts = result.posts.map((post) => ({
-      ...post,
-      character_count: (post.caption || '').length + (post.hashtags || []).join(' ').length,
-      platform_limit: PLATFORM_CONFIGS[post.platform]?.maxChars || 0,
+    result.posts = await Promise.all(result.posts.map(async (post) => {
+      let aiAnalysis = null;
+      
+      // Call Python Microservice for Virality & Sentiment Scoring if URL is configured
+      if (process.env.PYTHON_SERVICE_URL && post.caption) {
+        try {
+          const res = await fetch(`${process.env.PYTHON_SERVICE_URL}/analyze`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ text: post.caption })
+          });
+          if (res.ok) {
+            aiAnalysis = await res.json();
+          }
+        } catch (err) {
+          console.warn('Python AI Optimization service unavailable:', err.message);
+        }
+      }
+
+      return {
+        ...post,
+        character_count: (post.caption || '').length + (post.hashtags || []).join(' ').length,
+        platform_limit: PLATFORM_CONFIGS[post.platform]?.maxChars || 0,
+        ai_optimization: aiAnalysis
+      };
     }));
   }
 

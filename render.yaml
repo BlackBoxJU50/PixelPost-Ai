@@ -35,6 +35,21 @@ services:
         sync: false
       - key: GROQ_API_KEY
         sync: false
+      - key: PYTHON_SERVICE_URL
+        fromService:
+          type: web
+          name: pixelpost-ai-python-service
+          envVarKey: RENDER_EXTERNAL_URL
+    healthCheckPath: /health
+
+  # ─── Python AI Optimization Service ──────────────────────────────────────────
+  - type: web
+    name: pixelpost-ai-python-service
+    plan: free
+    runtime: python
+    rootDir: python-service
+    buildCommand: pip install -r requirements.txt
+    startCommand: uvicorn main:app --host 0.0.0.0 --port $PORT
     healthCheckPath: /health
 
   # ─── Frontend Static Site ─────────────────────────────────────────────────────
